@@ -1,0 +1,25 @@
+# Log files
+*.log
+/*/logs/
+
+# Vscode files
+.vscode/
+!/*/.vscode/
+/*/.vscode/*/
+
+### Python ###
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Archieved files
+*.zip
+*.tar.gz
+*.rar
+
