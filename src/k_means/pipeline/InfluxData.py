@@ -1,7 +1,7 @@
 from influxdb import InfluxDBClient, DataFrameClient
 class InfluxData:
     def __init_(self):
-        self._cli = None
+        self._cli:InfluxDBClient = None
         self._devices = []
         self._rs = None
     def set_client(self,ip,port:int,ID,pwd,database):
