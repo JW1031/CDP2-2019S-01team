@@ -1,4 +1,4 @@
-influxdb==5.2.1
+influxdb==5.2.2
 numpy==1.16.3
 urllib3==1.24.3
 requests==2.21.0
