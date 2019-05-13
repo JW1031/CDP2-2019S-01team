@@ -24,4 +24,4 @@ venv/
 *.rar
 
 # Config file
-config.py
+src/k_means/config.py
