@@ -1,3 +1,8 @@
-import k_means.pipeline.k_means_learn as km
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))
 
-km.test()
+from k_means import k_means_learn as kl
+
+kl.test()
+

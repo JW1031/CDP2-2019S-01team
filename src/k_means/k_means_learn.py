@@ -10,12 +10,11 @@ from matplotlib import rc
 from sklearn.metrics import mean_squared_error
 from sklearn.cluster import KMeans
 from concurrent.futures import ProcessPoolExecutor, as_completed, wait
-#from InfluxData import InfluxData
-from k_means.pipeline.InfluxData import InfluxData
+from .InfluxData import InfluxData
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import logging
-import config
+from . import config
 
 EXPECT_DATASET_SIZE = 60000 # 10min data
 
@@ -120,9 +119,10 @@ def FeatureProcessing(new_df):
     Feature = ss.transform(Feature)
     return dev_id,Feature
 
-def k_means_clustering(dev_id,Feature):
+def k_means_clustering(dev_id,Feature,filesave=False):
     kmeans = KMeans(n_clusters=4).fit(Feature)
-    np.save('PSD_k-means_center.npy',kmeans.cluster_centers_)
+    if filesave is True:
+        np.save('PSD_k-means_center.npy',kmeans.cluster_centers_)
     kmeans_labels = kmeans.labels_
     kmeans_results = pd.concat([dev_id,pd.DataFrame(kmeans_labels.reshape(-1,1),columns=['prediction'])],axis=1)
     kmeans_outliers = kmeans_results.loc[kmeans_results['prediction'] != 0]
