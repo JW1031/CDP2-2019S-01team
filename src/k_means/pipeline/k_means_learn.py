@@ -15,12 +15,17 @@ from k_means.pipeline.InfluxData import InfluxData
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import logging
+import config
 
 EXPECT_DATASET_SIZE = 60000 # 10min data
 
 def InitDB():
     client = InfluxData()
-    client.set_client('155.230.28.170',8086,'sslab','1231',database='kmaeq')
+    client.set_client(config.INFLUXDB_HOST,
+                        config.INFLUXDB_PORT,
+                        config.INFLUXDB_ID,
+                        config.INFLUXDB_PASSWORD,
+                        database=config.INFLUXDB_DATABASE)
     try:
         logging.info("[K_MEANS] InfluxDB Client Check...")
         client._cli.ping()
@@ -33,7 +38,11 @@ def InitDB():
 
 def psd_processing(dev_id:str):
     cli = InfluxData()
-    cli.set_client('155.230.28.170',8086,'sslab','1231',database='kmaeq')
+    cli.set_client(config.INFLUXDB_HOST,
+                        config.INFLUXDB_PORT,
+                        config.INFLUXDB_ID,
+                        config.INFLUXDB_PASSWORD,
+                        database=config.INFLUXDB_DATABASE)
     rs = cli.query(f"select * from acc_data where dev_id='{dev_id}' and time >= now() -40m AND time <= now() - 30m")
     data = cli.resultSetToDF(rs)
     if type(data['acc_data']) is list: #  it means empty data
