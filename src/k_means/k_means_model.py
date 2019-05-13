@@ -7,6 +7,8 @@ from . import k_means_learn as kl
 import logging
 from . import config
 
+import os, sys
+
 #TODO
 # Load Model config 
 # New Query and get the data
@@ -39,6 +41,8 @@ def InitDB():
 def loadClusterCenter():
     ''' Read cluster center file, and return
     '''
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(dir_path)
     try:
         cluster_centers = np.load(CLUSTER_CENTER_FILEPATH)
     except IOError as e:
