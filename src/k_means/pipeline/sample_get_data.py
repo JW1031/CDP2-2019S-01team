@@ -3,7 +3,12 @@ from concurrent.futures import ProcessPoolExecutor
 from multiprocessing import Queue
 import os
 import time
-client: InfluxDBClient = InfluxDBClient('155.230.28.170',8086,'sslab','1231',database='kmaeq')
+import config
+client: InfluxDBClient = InfluxDBClient(config.INFLUXDB_HOST,
+                        config.INFLUXDB_PORT,
+                        config.INFLUXDB_ID,
+                        config.INFLUXDB_PASSWORD,
+                        database=config.INFLUXDB_DATABASE)
 
 threads = os.cpu_count()
 if threads is None:
