@@ -23,3 +23,5 @@ venv/
 *.tar.gz
 *.rar
 
+# Config file
+config.py
