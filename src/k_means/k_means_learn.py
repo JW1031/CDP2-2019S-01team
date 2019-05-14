@@ -14,7 +14,7 @@ from .InfluxData import InfluxData
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import logging
-from . import config
+import config
 
 EXPECT_DATASET_SIZE = 60000 # 10min data
 

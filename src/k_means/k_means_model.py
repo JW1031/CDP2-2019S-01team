@@ -5,7 +5,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed, wait
 from .InfluxData import InfluxData
 from . import k_means_learn as kl
 import logging
-from . import config
+import config
 
 import os, sys
 
