@@ -42,7 +42,10 @@ def psd_processing(dev_id:str, time_range=['now() - 40m', 'now() - 30m']):
                         config.INFLUXDB_ID,
                         config.INFLUXDB_PASSWORD,
                         database=config.INFLUXDB_DATABASE)
-    rs = cli.query(f"select * from acc_data where dev_id='{dev_id}' and time >= {time_range[0]} AND time <= {time_range[1]}")
+    if time_range[0] == 'now() - 40m':
+        rs = cli.query(f"select * from acc_data where dev_id='{dev_id}' and time >= {time_range[0]} AND time <= {time_range[1]}")
+    else:
+        rs = cli.query(f"select * from acc_data where dev_id='{dev_id}' and time >= '{time_range[0]}' AND time <= '{time_range[1]}'")
     data = cli.resultSetToDF(rs)
     if type(data['acc_data']) is list: #  it means empty data
         logging.warning('empty data')
