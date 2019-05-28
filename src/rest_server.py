@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from flask_restful import reqparse
 
 from k_means import k_means_model as km
+import config
 
 from datetime import datetime
 import time
@@ -45,4 +46,4 @@ class CreateReport(Resource):
 api.add_resource(CreateReport,'/request')
 
 if __name__=='__main__':
-    app.run(host='155.230.28.128',port=19000,debug=True)
+    app.run(host=config.REST_HOST,port=config.REST_PORT,debug=True)
