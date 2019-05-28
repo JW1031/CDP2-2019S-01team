@@ -35,14 +35,14 @@ def InitDB():
     device_ids = client.get_device()
     return device_ids
 
-def psd_processing(dev_id:str):
+def psd_processing(dev_id:str, time_range=['now() - 40m', 'now() - 30m']):
     cli = InfluxData()
     cli.set_client(config.INFLUXDB_HOST,
                         config.INFLUXDB_PORT,
                         config.INFLUXDB_ID,
                         config.INFLUXDB_PASSWORD,
                         database=config.INFLUXDB_DATABASE)
-    rs = cli.query(f"select * from acc_data where dev_id='{dev_id}' and time >= now() -40m AND time <= now() - 30m")
+    rs = cli.query(f"select * from acc_data where dev_id='{dev_id}' and time >= {time_range[0]} AND time <= {time_range[1]}")
     data = cli.resultSetToDF(rs)
     if type(data['acc_data']) is list: #  it means empty data
         logging.warning('empty data')
@@ -73,17 +73,18 @@ def psd_processing(dev_id:str):
             }
     return row
 
-def run_query(new_df):
+def run_query(new_df,time_range=['now() - 40m', 'now() - 30m']):
     try:
         device_ids = InitDB()
     except:
         logging.error("[K_MEANS] Learning failed")
+        raise
         return
     #pool = ProcessPoolExecutor(len(device_ids))
     pool = ProcessPoolExecutor(os.cpu_count())
     futures = []
     for dev_id in device_ids:
-        futures.append(pool.submit(psd_processing,dev_id))
+        futures.append(pool.submit(psd_processing,dev_id,time_range))
 
     err_devices = [] 
 

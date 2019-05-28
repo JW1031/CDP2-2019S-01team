@@ -57,7 +57,10 @@ def model_loading():
     k_means.cluster_centers_ = loadClusterCenter()
     return k_means
 
-def HowToUse():
+def HowToUse(time_range=['now() - 40m', 'now() - 30m']):
+    ''' Load the model and use it to return the outlier.
+    *The function name will change soon.
+    '''
     device_ids = kl.InitDB()
     k_means = model_loading()
     raw_data = {'dev_id':[],
@@ -72,9 +75,9 @@ def HowToUse():
             'MIN_PSD_z': []
             }
     new_df = pd.DataFrame(raw_data)
-    new_df = kl.run_query(new_df)
+    new_df = kl.run_query(new_df,time_range)
     dev_id, Feature = kl.FeatureProcessing(new_df)
     labels = k_means.predict(Feature)
     result = pd.concat([dev_id, pd.DataFrame(labels.reshape(-1,1),columns=['prediction'])],axis=1)
     outliers = result.loc[result['prediction'] != 0]
-    print(outliers)
+    return outliers
