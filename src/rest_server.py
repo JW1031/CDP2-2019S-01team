@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_restful import reqparse
 
+import matplotlib.pyplot as plt
+
+plt.ioff()
+
 from k_means import k_means_model as km
 import config
 
