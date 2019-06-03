@@ -3,7 +3,8 @@ from flask_restful import Resource, Api
 from flask_restful import reqparse
 
 import matplotlib.pyplot as plt
-
+import matplotlib as mp
+mp.use('Agg')
 plt.ioff()
 
 from k_means import k_means_model as km
