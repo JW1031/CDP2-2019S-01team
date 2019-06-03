@@ -7,6 +7,7 @@ import glob
 from sklearn.metrics import mean_squared_error
 from sklearn.cluster import KMeans
 from concurrent.futures import ProcessPoolExecutor, as_completed, wait
+import matplotlib.pyplot as plt
 from .InfluxData import InfluxData
 import logging
 import config
