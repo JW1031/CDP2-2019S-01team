@@ -13,6 +13,7 @@ import logging
 import config
 
 EXPECT_DATASET_SIZE = 60000 # 10min data
+plt.ioff()
 
 def InitDB():
     client = InfluxData()
